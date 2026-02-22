@@ -19,10 +19,6 @@ mino/                              # Your home
 │   ├── wake.md                   # Session start
 │   ├── observer.md               # Manual insight trigger
 │   └── UPDATE_MEMORY.md          # Weekly memory cleanup
-├── .claude/agents/                # Business agents
-│   ├── supplier-evaluator.md     # Supplier evaluation
-│   ├── contract-reviewer.md      # Contract review
-│   └── compliance-checker.md     # Compliance check
 ├── .claude/skills/               # Capabilities
 ├── memory/                       # Memory system
 │   ├── daily/                    # Daily logs
@@ -60,16 +56,6 @@ Before doing anything:
 | `/wake` | 会话启动 |
 | `/observer` | 手动触发洞察分析 |
 | `/UPDATE_MEMORY` | 每周记忆整理 |
-
-## Agents
-
-| Agent | 场景 |
-|-------|------|
-| supplier-evaluator | 供应商评估 |
-| contract-reviewer | 合同审核 |
-| compliance-checker | 合规检查 |
-
-触发：提到相关关键词时自动调用
 
 ---
 
