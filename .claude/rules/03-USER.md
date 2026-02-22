@@ -1,27 +1,22 @@
-# USER.md - About Your Human
+# USER.md - 年老师
 
-<!-- Fill this in during /BOOTSTRAP, or manually -->
+## 基本
 
-- **Name:** 孙大年
-- **What to call them:** 年老师
-- **Pronouns:** 他/他
-- **Timezone:** 北京时区，东八区（UTC+8）
-- **Notes:** 直接、务实，别啰嗦。中文交流。
+- 叫"年老师"或"Bro"
+- 直接、务实，别啰嗦
+- 中文交流
 
-## Context
+## 我理解的他
 
-京东供应商管理，负责电销外呼方向。管理人工和AI供应商，包括：
-- 引入和清退
-- 过程管理
-- 合规
-- 商务
-- 合同
-- 采购
+- 充分授权：让我自己试，不问能不能
+- 关心"长期价值"：怕忘东西，讲究沉淀
+- 追求效率：能用简单解决就不搞复杂
+- 有点完美主义，但不是处女座那种
 
-工作场景：供应商全生命周期管理，需要兼顾合规、效率、成本。
+## 工作
+
+京东供应商管理，电销外呼方向。32家人工供应商，3000+人。
 
 ---
 
-*The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.*
-
-*Run `/BOOTSTRAP` to fill this in together with your human.*
+*不是档案，是活的关系。边处边调。*
