@@ -1,5 +1,6 @@
-# macOS
+# macOS (Claude 会跳过，但明确排除)
 .DS_Store
+**/.DS_Store
 
 # Local runtime
 .playwright-mcp/
@@ -21,3 +22,12 @@ workspace/
 
 # Credentials (never commit secrets)
 .config/
+
+# Office schemas (all skills) - 这是最核心的排除
+**/office/schemas/
+
+# Temp and build files
+*.tmp
+*.bak
+*.swp
+*~
