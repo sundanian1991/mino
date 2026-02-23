@@ -90,11 +90,28 @@ update: 手动（流程变更时）
 
 ### 3. 自动同步机制
 
+**实现方式**：Skill Hook (PostToolUse)
+
+**触发条件**：
+- 检测到 `memory/` 目录下 `.md` 文件被 Write/Edit
+- 自动触发 `memory-update-index.sh` 重建 `.abstract` 索引
+
+**SKILL.md 配置**：
+```yaml
+hooks:
+  PostToolUse:
+    - matcher: "Write|Edit"
+      pathPattern: "memory/.*\\.md$"
+      hooks:
+        - type: command
+          command: memory-update-index.sh
 ```
-/observer → 写入记忆 → memory-update-index.sh → 更新 .abstract
-                                                            ↓
-/UPDATE_MEMORY → 周文档 → memory-cleanup.sh → 删除过期 + 重建索引
-```
+
+**效果**：
+- 改代码 → 自动检查 → 更新索引
+- 无需手动维护 `.abstract`
+
+---
 
 **脚本**：
 - `memory-update-index.sh` - 轻量索引更新（observer 用）
