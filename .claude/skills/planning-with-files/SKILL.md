@@ -1,7 +1,7 @@
 ---
 name: planning-with-files
-version: "2.10.0"
-description: Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls. Now with automatic session recovery after /clear.
+version: "3.0.0"
+description: 五文件工作流 — 用持久化文件解决 AI 长任务崩溃问题。支持 Manus 三文件模式和 Derrick Choi 五文件模式。
 user-invocable: true
 allowed-tools:
   - Read
@@ -53,9 +53,57 @@ hooks:
             fi
 ---
 
-# Planning with Files
+# Planning with Files — 五文件工作流
 
-Work like Manus: Use persistent markdown files as your "working memory on disk."
+**核心机制**：用持久化文件解决 AI 长任务崩溃问题
+
+```
+Context Window = RAM（易失，有限）
+Filesystem = Disk（持久，无限）
+
+→ 重要的东西写进文件里。
+```
+
+---
+
+## 两种模式
+
+### 模式 A：Derrick Choi 五文件流（推荐用于复杂开发项目）
+
+| 文件 | 优先级 | 核心功能 |
+|------|--------|----------|
+| `docs/prompt.md` | ★★★★★ | 定义项目边界：目标/排除项/交付物/完成标准 |
+| `docs/plans.md` | ★★★★★ | 任务拆解与验证：1-2 小时里程碑 + 验收命令 |
+| `docs/architecture.md` | ★★★ | 技术规范锁定：防止架构频繁变更 |
+| `docs/implement.md` | ★★★ | 操作手册：详细执行步骤 |
+| `docs/documentation.md` | ★★ | 进度追踪：AI 工作日志 |
+
+**核心机制**：
+- **排除项** = 防跑偏核心（明确不要什么）
+- **小里程碑** = 1-2 小时可完成的粒度
+- **强制验证** = 验收不通过禁止进入下一阶段
+
+### 模式 B：Manus 三文件流（推荐用于研究/探索任务）
+
+| 文件 | 核心功能 |
+|------|----------|
+| `task_plan.md` | 阶段追踪、决策记录 |
+| `findings.md` | 研究发现存储 |
+| `progress.md` | 会话日志 |
+
+---
+
+## Quick Start — 五文件流
+
+```bash
+# 1. 初始化（一键创建 docs/目录 + 五个模板）
+/Users/sundanian/.myagents/projects/mino/.claude/skills/planning-with-files/scripts/init.sh
+
+# 2. 编辑 docs/prompt.md - 定义项目边界
+# 3. 编辑 docs/plans.md - 拆解任务 + 验收命令
+
+# 4. 说"开始执行" - AI 按 plans.md 执行，每步验证
+```
 
 ## FIRST: Check for Previous Session (v2.2.0)
 
@@ -226,9 +274,9 @@ Copy these templates to start:
 
 Helper scripts for automation:
 
-- `scripts/init-session.sh` — Initialize all planning files
-- `scripts/check-complete.sh` — Verify all phases complete
-- `scripts/session-catchup.py` — Recover context from previous session (v2.2.0)
+- `scripts/init.sh` — 初始化五文件工作流（创建 docs/目录 + 模板）
+- `scripts/check-complete.sh` — 验证所有阶段完成
+- `scripts/session-catchup.py` — 从上次会话恢复上下文 (v2.2.0)
 
 ## Advanced Topics
 
