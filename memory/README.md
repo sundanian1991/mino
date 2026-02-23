@@ -1,6 +1,15 @@
+---
+pos: memory/
+input: 对话内容、观察洞察
+output: L0/L1/L2 分层记忆文件
+update: 自动（observer/UPDATE_MEMORY 触发脚本）
+---
+
 # memory/ - 记忆系统
 
 > L0/L1/L2 分层记忆 + P0/P1/P2 生命周期管理
+>
+> **来源**：OpenViking 记忆管理方案 + Vibe Coding 分层文档架构
 
 ---
 

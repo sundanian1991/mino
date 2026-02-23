@@ -1,6 +1,15 @@
+---
+pos: .claude/rules/
+input: 无
+output: AI 行为规则配置
+update: 手动（规则变更时）
+---
+
 # .claude/rules/ - 系统规则库
 
 > mino 的"操作系统内核" - AI 行为规则与配置
+>
+> **来源**：Vibe Coding 分层文档架构 - 模块级规则库
 
 ---
 
