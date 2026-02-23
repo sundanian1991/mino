@@ -1,3 +1,10 @@
+---
+pos: root/CLAUDE.md
+input: 无
+output: 项目入口配置
+update: 手动（结构变更时）
+---
+
 # CLAUDE.md - Your Workspace
 
 This folder is home. Treat it like home.

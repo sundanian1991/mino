@@ -1,3 +1,10 @@
+---
+pos: .claude/rules/06-NOW.md
+input: 无
+output: 会话启动流程 + 记忆体系说明
+update: 手动（流程变更时）
+---
+
 # NOW.md — 插卡式记忆
 
 醒来先读这个。
