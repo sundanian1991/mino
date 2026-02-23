@@ -1,36 +1,23 @@
 #!/bin/bash
-# memory-cleanup.sh - 记忆系统自动清理脚本
-# 用法：./memory-cleanup.sh
+# memory-update-index.sh - 快速更新 .abstract 索引（不删除）
+# 用法：./memory-update-index.sh [new_file.md]
 
 set -e
 
 MEMORY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../memory" && pwd)"
 ABSTRACT_FILE="$MEMORY_DIR/.abstract"
+NEW_FILE="$1"
 
-echo "[memory-cleanup] 开始清理：$MEMORY_DIR"
+echo "[memory-index] 更新索引：$MEMORY_DIR"
 
-# P2-daily: 删除 30 天前的文件
-echo "[memory-cleanup] 清理 P2-daily (30 天前)..."
-find "$MEMORY_DIR/P2-daily" -name "*.md" -mtime +30 -delete 2>/dev/null || true
-
-# P2-observations: 删除 60 天前的文件
-echo "[memory-cleanup] 清理 P2-observations (60 天前)..."
-find "$MEMORY_DIR/P2-observations" -name "*.md" -mtime +60 -delete 2>/dev/null || true
-
-# P1-active: 检查 90 天未更新的文件，生成报告
-echo "[memory-cleanup] 检查 P1-active (90 天未更新)..."
-ARCHIVE_CANDIDATES=$(find "$MEMORY_DIR/P1-active" -name "*.md" -mtime +90 2>/dev/null || true)
-if [ -n "$ARCHIVE_CANDIDATES" ]; then
-    echo "[memory-cleanup] ⚠️  以下文件 90 天未更新，建议归档："
-    echo "$ARCHIVE_CANDIDATES"
-else
-    echo "[memory-cleanup] ✅ P1-active 无需归档"
+# 如果有新文件，输出提示
+if [ -n "$NEW_FILE" ]; then
+    echo "[memory-index] ✅ 新增：$NEW_FILE"
 fi
 
-# 自动重建 .abstract 索引
-echo "[memory-cleanup] 重建 .abstract 索引..."
 TODAY=$(date +%Y-%m-%d)
 
+# 快速重建索引（简化版，只更新文件列表）
 cat > "$ABSTRACT_FILE" << EOF
 # 记忆索引 (Memory Abstract)
 
@@ -64,9 +51,9 @@ if [ -n "$P1_FILES" ]; then
     echo "| 项目 | 状态 | 最后更新 |" >> "$ABSTRACT_FILE"
     echo "|------|------|----------|" >> "$ABSTRACT_FILE"
     for file in $P1_FILES; do
-        basename=$(basename "$file")
-        mtime=$(stat -f "%Sm" -t "%Y-%m-%d" "$file" 2>/dev/null || echo "未知")
-        echo "| $basename | 🔄 进行中 | $mtime |" >> "$ABSTRACT_FILE"
+        bn=$(basename "$file")
+        mt=$(stat -f "%Sm" -t "%Y-%m-%d" "$file" 2>/dev/null || echo "未知")
+        echo "| $bn | 🔄 进行中 | $mt |" >> "$ABSTRACT_FILE"
     done
 else
     echo "*暂无活跃项目*" >> "$ABSTRACT_FILE"
@@ -85,8 +72,8 @@ EOF
 DAILY_FILES=$(find "$MEMORY_DIR/P2-daily" -name "*.md" -mtime -7 2>/dev/null | sort -r)
 if [ -n "$DAILY_FILES" ]; then
     for file in $DAILY_FILES; do
-        basename=$(basename "$file")
-        echo "- $basename" >> "$ABSTRACT_FILE"
+        bn=$(basename "$file")
+        echo "- $bn" >> "$ABSTRACT_FILE"
     done
 else
     echo "- 无最近记录" >> "$ABSTRACT_FILE"
@@ -101,8 +88,8 @@ EOF
 OBS_FILES=$(find "$MEMORY_DIR/P2-observations" -name "*.md" 2>/dev/null | sort -r)
 if [ -n "$OBS_FILES" ]; then
     for file in $OBS_FILES; do
-        basename=$(basename "$file")
-        echo "- $basename" >> "$ABSTRACT_FILE"
+        bn=$(basename "$file")
+        echo "- $bn" >> "$ABSTRACT_FILE"
     done
 else
     echo "- 无" >> "$ABSTRACT_FILE"
@@ -117,8 +104,8 @@ EOF
 WEEKLY_FILES=$(find "$MEMORY_DIR/P2-weekly" -name "*.md" 2>/dev/null | sort -r)
 if [ -n "$WEEKLY_FILES" ]; then
     for file in $WEEKLY_FILES; do
-        basename=$(basename "$file")
-        echo "- $basename" >> "$ABSTRACT_FILE"
+        bn=$(basename "$file")
+        echo "- $bn" >> "$ABSTRACT_FILE"
     done
 else
     echo "- 无" >> "$ABSTRACT_FILE"
@@ -130,13 +117,8 @@ cat >> "$ABSTRACT_FILE" << EOF
 
 ## 加载策略
 
-\`\`\`
 启动时 → 只读此文件 (L0)
-      ↓
-用户问到具体项目 → 加载对应 P1 文件 (L1)
-      ↓
-需要详情 → 加载完整文件 (L2)
-\`\`\`
+需要时 → 加载对应 P1/P2 文件 (L1/L2)
 
 ---
 
@@ -153,5 +135,4 @@ cat >> "$ABSTRACT_FILE" << EOF
 *最后运行：$TODAY*
 EOF
 
-echo "[memory-cleanup] ✅ 索引重建完成"
-echo "[memory-cleanup] 清理完成！"
+echo "[memory-index] ✅ 索引更新完成"

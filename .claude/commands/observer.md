@@ -14,7 +14,7 @@ description: "手动执行对话洞察分析"
 **中间层**，不是终点。
 
 ```
-daily (日) → observations (月) → weekly (周) → 长期记忆
+P2-daily (日) → P2-observations (月) → P2-weekly (周) → 长期记忆
 ```
 
 ---
@@ -22,7 +22,7 @@ daily (日) → observations (月) → weekly (周) → 长期记忆
 ## 观察维度
 
 ### 1. 需求洞察
-这次对话表面问的是A，实际可能在解决B？
+这次对话表面问的是 A，实际可能在解决 B？
 
 ### 2. 模式信号
 最近反复出现的信号？趋势？
@@ -53,18 +53,19 @@ daily (日) → observations (月) → weekly (周) → 长期记忆
 ## 执行
 
 1. 回顾对话
-2. 提炼3个维度
-3. **同时做两件事**：
-   - 有事实值得记录 → 写入 `memory/daily/YYYY-MM-DD.md`
-   - 有洞察值得沉淀 → 追加写入 `memory/observations/YYYY-MM.md`
+2. 提炼 3 个维度
+3. **同时做三件事**：
+   - 有事实值得记录 → 写入 `memory/P2-daily/YYYY-MM-DD.md`
+   - 有洞察值得沉淀 → 追加写入 `memory/P2-observations/YYYY-MM.md`
+   - **运行索引更新脚本** → 自动同步 `.abstract`
 
 ---
 
 ## 后续流程
 
-- **每周 (UPDATE_MEMORY)**：从 observations 汇总 → 周文档 + 判断是否进长期记忆
+- **每周 (UPDATE_MEMORY)**：从 P2-observations 汇总 → 周文档 + 判断是否进长期记忆
 - **长期记忆**：04-MEMORY / 03-USER / 02-SOUL
 
 ---
 
-*轻量、选择性、双写（事实+洞察）*
+*轻量、选择性、双写（事实 + 洞察）+ 自动更新索引*

@@ -56,21 +56,22 @@ description: "整理记忆 - 每周定时触发"
 ### 4. 年老师特质变化
 - 发现新偏好/习惯 → 更新 03-USER.md
 
-### 5. 自动清理（新增）
+### 5. 自动清理（调用脚本）
 
-**P2-daily 清理**：
-- 删除 30 天前的 daily 文件
+**运行 cleanup 脚本**：
+```bash
+.clause/skills/memory/scripts/memory-cleanup.sh
+```
 
-**P2-observations 清理**：
-- 60 天前的 observations 合并到 weekly 后删除
+脚本自动完成：
+- 删除 30 天前的 P2-daily
+- 删除 60 天前的 P2-observations
+- 检查 90 天未更新的 P1-active
+- **自动重建 `.abstract` 索引**
 
-**P1-active 归档检查**：
-- 检查 90 天未更新的项目
-- 提示是否归档到 P2-weekly
-
-### 6. 更新 .abstract 索引
-- 更新 `memory/.abstract` 中的文件列表
-- 更新"最后运行"时间
+### 6. 验证索引更新
+- 读取 `memory/.abstract` 确认索引已更新
+- 检查 P1/P2 文件列表正确
 
 ---
 
@@ -78,7 +79,7 @@ description: "整理记忆 - 每周定时触发"
 
 1. 周文档 `memory/P2-weekly/YYYY-MM-Wx.md`
 2. 更新的长期记忆（如果有）
-3. 更新 `.abstract` 索引
+3. 自动清理完成 + 索引重建
 4. Commit + Push
 
 ---
